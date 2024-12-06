@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LapKeHoachActivity"
+    android:orientation="vertical">
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        android:background="@color/md_yellow_800">
+        <ImageView
+            android:id="@+id/image_back"
+            android:src="@drawable/back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:tint="@color/white"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="24dp"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:gravity="center_vertical"
+            android:text="Lập kế hoạch"
+            android:textColor="@color/white"
+            android:layout_marginStart="40dp"
+            android:textSize="25sp"/>
+    </TableRow>
+
+    <ListView
+        android:id="@+id/lvKeHoach"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_plus"
+        android:layout_marginTop="580dp"
+        android:layout_marginStart="330dp"/>
+
+</LinearLayout>

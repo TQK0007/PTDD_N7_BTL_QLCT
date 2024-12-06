@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TimKiemActivity"
+    android:orientation="vertical">
+
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        android:background="@color/md_yellow_800">
+        <ImageView
+            android:id="@+id/image_back"
+            android:src="@drawable/back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:tint="@color/white"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="24dp"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:gravity="center_vertical"
+            android:text="Tìm kiếm"
+            android:textColor="@color/white"
+            android:layout_marginStart="40dp"
+            android:textSize="25sp"/>
+    </TableRow>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/md_blue_grey_200"/>
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:weightSum="2"
+        >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/search"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="15dp"
+            />
+        <EditText
+            android:id="@+id/txtSearch"
+            android:layout_gravity="center_vertical"
+            android:hint="Tìm kiếm"
+            android:layout_marginStart="15dp"
+            android:background="@color/white"
+            />
+    </TableRow>
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:weightSum="3">
+        <TextView
+            android:layout_height="30dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="Tiền thu"
+            android:textSize="18sp"
+            android:gravity="center"/>
+        <TextView
+            android:layout_height="30dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="Tiền chi"
+            android:textSize="18sp"
+            android:gravity="center"/>
+        <TextView
+            android:layout_height="30dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="Tổng"
+            android:textSize="18sp"
+            android:gravity="center"/>
+    </TableRow>
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:weightSum="3">
+        <TextView
+            android:layout_height="30dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="0đ"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:textColor="@color/md_green_700"/>
+        <TextView
+            android:layout_height="30dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="0đ"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:textColor="@color/md_red_700"/>
+        <TextView
+            android:layout_height="30dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="0đ"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:textColor="@color/md_red_700"/>
+    </TableRow>
+
+</LinearLayout>

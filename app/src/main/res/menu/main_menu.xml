@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_TimKiem"
+        android:title="Tìm kiếm"
+        android:icon="@drawable/search"
+        app:showAsAction="always"
+        />
+
+    <item
+        android:id="@+id/menu_ThuChi"
+        android:title="Thu chi"
+        android:icon="@drawable/ic_wallet"
+        />
+    <item
+        android:id="@+id/menu_DanhMuc"
+        android:title="Danh mục"
+        android:icon="@drawable/ic_list"
+        />
+    <item
+        android:id="@+id/menu_LapKH"
+        android:title="Lập kế hoạch"
+        android:icon="@drawable/ic_lich"
+        />
+    <item
+        android:id="@+id/menu_Thoat"
+        android:title="Thoát"
+        android:icon="@drawable/ic_exit"
+        />
+</menu>
