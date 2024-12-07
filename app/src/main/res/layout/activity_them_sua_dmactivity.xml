@@ -6,47 +6,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ThemSuaDMActivity"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:orientation="vertical">
 
-    <LinearLayout
+    <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/md_yellow_800"
-        >
+        android:weightSum="2"
+        android:background="@color/md_yellow_800">
         <ImageView
             android:id="@+id/image_back"
             android:src="@drawable/back"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
             app:tint="@color/white"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="15dp"
             />
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="THÊM DANH MỤC TIỀN THU"
+            android:layout_height="70dp"
 
-            android:padding="12dp"
-            android:layout_marginStart="30dp"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            />
-    </LinearLayout>
+            android:gravity="center_vertical"
+            android:text="Thêm danh mục"
+            android:textColor="@color/white"
+            android:layout_marginStart="40dp"
+            android:textSize="20sp"/>
+    </TableRow>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="8dp">
+        android:padding="8dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tên"
-            android:textSize="14sp" />
+            android:textSize="16sp" />
 
         <EditText
             android:id="@+id/editNote"
@@ -62,13 +59,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="8dp">
+        android:padding="8dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Biểu tượng"
-            android:textSize="14sp" />
+            android:textSize="16sp" />
 
     </LinearLayout>
 
@@ -241,7 +238,7 @@
         android:layout_marginTop="16dp"
         android:layout_gravity="center"
         android:text="Thêm"
-        android:backgroundTint="@color/md_cyan_800"
+        android:backgroundTint="@color/md_blue_600"
         android:textColor="@android:color/white"
         android:padding="12dp" />
 

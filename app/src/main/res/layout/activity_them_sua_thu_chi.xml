@@ -6,46 +6,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ThemSuaThuChiActivity"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:orientation="vertical">
 
-    <LinearLayout
+    <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:weightSum="2"
         android:background="@color/md_yellow_800">
         <ImageView
             android:id="@+id/image_back"
             android:src="@drawable/back"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
             app:tint="@color/white"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="15dp"
             />
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="THÊM TIỀN THU"
-            android:layout_marginStart="70dp"
-            android:padding="12dp"
+            android:layout_height="70dp"
 
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            />
-    </LinearLayout>
+            android:gravity="center_vertical"
+            android:text="Thêm tiền thu"
+            android:textColor="@color/white"
+            android:layout_marginStart="40dp"
+            android:textSize="20sp"/>
+    </TableRow>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="16dp"
+        android:padding="8dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Ngày"
-            android:textSize="14sp" />
+            android:textSize="16sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -73,13 +72,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="8dp">
+        android:layout_marginTop="8dp"
+        android:padding="8dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Ghi chú"
-            android:textSize="14sp" />
+            android:textSize="16sp" />
 
         <EditText
             android:id="@+id/editNote"
@@ -95,13 +95,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="8dp">
+        android:layout_marginTop="8dp"
+        android:padding="8dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tiền thu"
-            android:textSize="14sp" />
+            android:textSize="16sp" />
 
         <EditText
             android:id="@+id/editTienThu"
@@ -187,32 +188,31 @@
     </GridLayout>
 
     <TableRow
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:weightSum="2"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
         android:layout_gravity="center">
+
         <Button
             android:id="@+id/btnDanhMuc"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:layout_gravity="center"
-            android:text="Danh mục"
+            android:layout_weight="1"
             android:backgroundTint="@color/md_yellow_800"
-            android:textColor="@android:color/white"
-            android:padding="12dp" />
+            android:text="Danh mục"
+            android:layout_margin="8dp"
+            android:textColor="@android:color/white" />
+
         <Button
             android:id="@+id/btnThemTienThu"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:layout_gravity="center"
+            android:layout_weight="1"
+            android:backgroundTint="@color/md_blue_600"
             android:text="Thêm"
-            android:backgroundTint="@color/md_cyan_800"
-            android:textColor="@android:color/white"
-            android:padding="12dp" />
+            android:layout_margin="8dp"
+            android:textColor="@android:color/white" />
     </TableRow>
 
 </LinearLayout>

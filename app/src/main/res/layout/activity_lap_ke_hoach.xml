@@ -16,20 +16,21 @@
         <ImageView
             android:id="@+id/image_back"
             android:src="@drawable/back"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
             app:tint="@color/white"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="15dp"
             />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="70dp"
+
             android:gravity="center_vertical"
             android:text="Lập kế hoạch"
             android:textColor="@color/white"
             android:layout_marginStart="40dp"
-            android:textSize="25sp"/>
+            android:textSize="20sp"/>
     </TableRow>
 
     <ListView
@@ -38,10 +39,10 @@
         android:layout_height="wrap_content"/>
 
     <ImageView
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:src="@drawable/ic_plus"
         android:layout_marginTop="580dp"
-        android:layout_marginStart="330dp"/>
+        android:layout_marginStart="340dp"/>
 
 </LinearLayout>

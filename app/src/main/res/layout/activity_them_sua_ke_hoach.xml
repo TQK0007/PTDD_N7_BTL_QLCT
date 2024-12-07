@@ -6,46 +6,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ThemSuaKeHoachActivity"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:orientation="vertical">
 
-    <LinearLayout
+    <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/md_yellow_800"
-        >
+        android:weightSum="2"
+        android:background="@color/md_yellow_800">
         <ImageView
             android:id="@+id/image_back"
             android:src="@drawable/back"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
             app:tint="@color/white"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="15dp"
             />
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="THÊM KẾ HOẠCH"
-            android:layout_marginStart="60dp"
-            android:padding="12dp"
+            android:layout_height="70dp"
 
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            />
-    </LinearLayout>
+            android:gravity="center_vertical"
+            android:text="Thêm kế hoạch"
+            android:textColor="@color/white"
+            android:layout_marginStart="40dp"
+            android:textSize="20sp"/>
+    </TableRow>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="16dp"
+        android:padding="8dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tên kế hoạch"
-            android:textSize="14sp" />
+            android:textSize="16sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -68,13 +67,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="8dp">
+        android:layout_marginTop="8dp"
+        android:padding="8dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mục tiêu"
-            android:textSize="14sp" />
+            android:textSize="16sp" />
 
         <EditText
             android:id="@+id/et_target_amount"
@@ -90,13 +90,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="8dp">
+        android:layout_marginTop="8dp"
+        android:padding="8dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tiến độ hiện tại"
-            android:textSize="14sp" />
+            android:textSize="16sp" />
 
         <EditText
             android:id="@+id/et_current_amount"
@@ -115,7 +116,7 @@
         android:layout_marginTop="16dp"
         android:layout_gravity="center"
         android:text="Thêm"
-        android:backgroundTint="@color/md_cyan_800"
+        android:backgroundTint="@color/md_blue_600"
         android:textColor="@android:color/white"
         android:padding="12dp" />
 
