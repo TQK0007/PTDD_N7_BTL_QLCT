@@ -4,6 +4,7 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 import lombok.AllArgsConstructor;
@@ -30,7 +31,7 @@ import lombok.NoArgsConstructor;
                 )
         }
 )
-public class Transactions {
+public class Transactions implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private int transactionId;
     private double amount;

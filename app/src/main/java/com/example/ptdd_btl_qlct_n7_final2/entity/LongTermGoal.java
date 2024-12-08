@@ -3,6 +3,8 @@ package com.example.ptdd_btl_qlct_n7_final2.entity;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class LongTermGoal {
+public class LongTermGoal implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
