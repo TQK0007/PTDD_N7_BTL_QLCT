@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +22,10 @@ public class ThuChiActivity extends AppCompatActivity {
     private ActivityThuChiBinding binding;
     private Intent intent;
     private ImageView imageViewBack, imageViewAdd;
+
+    private TextView tvTC, tvTT;
+    private View indicatorTC, indicatorTT;
+    private boolean isTienChiTab=true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +51,17 @@ public class ThuChiActivity extends AppCompatActivity {
                 navigateThemSuaTC();
             }
         });
+
+        tvTC.setOnClickListener(view -> {
+            isTienChiTab=true;
+            switchTab();
+        });
+        tvTT.setOnClickListener(view -> {
+            isTienChiTab=false;
+            switchTab();
+        });
+
+
     }
 
     private void getWidget()
@@ -56,6 +72,12 @@ public class ThuChiActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         imageViewBack = binding.imageBack;
         imageViewAdd = binding.imageAdd;
+
+        indicatorTC = binding.indicatorTc;
+        indicatorTT = binding.indicatorTt;
+
+        tvTC=binding.tvTC;
+        tvTT=binding.tvTT;
 
     }
 
@@ -70,4 +92,27 @@ public class ThuChiActivity extends AppCompatActivity {
         intent = new Intent(ThuChiActivity.this, ThemSuaThuChiActivity.class);
         startActivity(intent);
     }
+
+
+    private void switchTab() {
+
+        if(isTienChiTab)
+        {
+            // Cập nhật UI
+            tvTC.setTextColor(getResources().getColor(R.color.md_yellow_600));
+            indicatorTC.setVisibility(View.VISIBLE);
+            tvTT.setTextColor(getResources().getColor(R.color.black));
+            indicatorTT.setVisibility(View.INVISIBLE);
+        }
+        else
+        {
+            // Cập nhật UI
+            tvTT.setTextColor(getResources().getColor(R.color.md_yellow_600));
+            indicatorTT.setVisibility(View.VISIBLE);
+            tvTC.setTextColor(getResources().getColor(R.color.black));
+            indicatorTC.setVisibility(View.INVISIBLE);
+        }
+
+    }
+
 }
