@@ -44,13 +44,11 @@ public class DanhMucAdapter extends ArrayAdapter {
             final TextView title_DM_item = convertView.findViewById(R.id.tv_title_DM_item);
 
             Category o = list.get(position);
-
             Resources resources = context.getResources();
             Bitmap bitmap =convertStringToBitmap(o.getIconName());
             Drawable drawable = new BitmapDrawable(resources,bitmap);
             imageView.setImageDrawable(drawable);
             title_DM_item.setText(o.getCategoryName());
-
         }
         return  convertView;
     }

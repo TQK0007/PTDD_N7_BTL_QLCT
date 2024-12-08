@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Đặt màu nền cho drawable (có thể bỏ qua nếu không cần nền) -->
+<!--    <solid android:color="#FFFFFF" /> &lt;!&ndash; Màu nền, bỏ đi nếu không cần &ndash;&gt;-->
+
+    <!-- Định nghĩa border -->
+    <stroke
+        android:width="2dp"
+        android:color="@color/md_yellow_800"/>
+</shape>

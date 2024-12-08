@@ -14,4 +14,6 @@ public interface CategoryDAO extends DAO<Category>{
     @Query(value = "Select * from Category")
     List<Category> getAll();
 
+    @Query(value = "Select * from Category where isIncome = :isIncone")
+    List<Category> getAllByIsIncome(boolean isIncone);
 }
