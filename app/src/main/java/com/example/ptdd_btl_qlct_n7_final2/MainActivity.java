@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -34,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
     private ImageView imageView;
     private Context currentContext = this;
     private Button btnGui;
+    private TextView tvTC, tvTT;
+    private View indicatorTC, indicatorTT;
+    private boolean isTienChiTab=true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,14 @@ public class MainActivity extends AppCompatActivity {
 
 
         getWidget();
+        tvTC.setOnClickListener(view -> {
+            isTienChiTab=true;
+            switchTab();
+        });
+        tvTT.setOnClickListener(view -> {
+            isTienChiTab=false;
+            switchTab();
+        });
 
     }
 
@@ -85,6 +97,11 @@ public class MainActivity extends AppCompatActivity {
         toolbar = binding.toolbar;
         setSupportActionBar(toolbar);
         imageView = binding.imageAdd;
+        indicatorTC = binding.indicatorTc;
+        indicatorTT = binding.indicatorTt;
+
+        tvTC=binding.tvTC;
+        tvTT=binding.tvTT;
 
     }
 
@@ -127,6 +144,27 @@ public class MainActivity extends AppCompatActivity {
         return Base64.encodeToString(byteArray, Base64.DEFAULT);
     }
 
+
+    private void switchTab() {
+
+        if(isTienChiTab)
+        {
+            // Cập nhật UI
+            tvTC.setTextColor(getResources().getColor(R.color.md_yellow_600));
+            indicatorTC.setVisibility(View.VISIBLE);
+            tvTT.setTextColor(getResources().getColor(R.color.black));
+            indicatorTT.setVisibility(View.INVISIBLE);
+        }
+        else
+        {
+            // Cập nhật UI
+            tvTT.setTextColor(getResources().getColor(R.color.md_yellow_600));
+            indicatorTT.setVisibility(View.VISIBLE);
+            tvTC.setTextColor(getResources().getColor(R.color.black));
+            indicatorTC.setVisibility(View.INVISIBLE);
+        }
+
+    }
 
 
 
