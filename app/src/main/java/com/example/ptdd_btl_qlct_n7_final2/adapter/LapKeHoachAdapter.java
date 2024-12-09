@@ -1,5 +1,6 @@
 package com.example.ptdd_btl_qlct_n7_final2.adapter;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -19,6 +20,8 @@ import androidx.annotation.Nullable;
 import com.example.ptdd_btl_qlct_n7_final2.R;
 import com.example.ptdd_btl_qlct_n7_final2.entity.LongTermGoal;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class LapKeHoachAdapter extends ArrayAdapter {
@@ -40,16 +43,32 @@ public class LapKeHoachAdapter extends ArrayAdapter {
         if(list.size() > 0 && position >=0)
         {
 
-            TextView tv_plan_goal, tv_target_amount,tv_progress;
+            TextView tv_plan_goal, tv_target_amount,tv_dealine,tv_progress;
             ProgressBar progressBar;
             tv_plan_goal = convertView.findViewById(R.id.tv_plan_goal);
             tv_target_amount = convertView.findViewById(R.id.tv_target_amount);
             tv_progress = convertView.findViewById(R.id.tv_progress);
             progressBar = convertView.findViewById(R.id.progress_bar);
+            tv_dealine=convertView.findViewById(R.id.tv_dealine);
 
             LongTermGoal o = list.get(position);
             tv_plan_goal.setText(o.getName());
             tv_target_amount.setText(o.getTarget()+"");
+
+
+            Date deadline = o.getDeadline(); // Thay thế bằng o.getDeadline()
+
+            // Format sang dạng dd/MM/yyyy
+            @SuppressLint("SimpleDateFormat")
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+            String formattedDate = dateFormat.format(deadline);
+//            System.out.println("Formatted Date: " + formattedDate);
+
+            // Nếu trong Android
+            tv_dealine.setText(formattedDate);
+
+//            tv_dealine.setText(o.getDeadline().toString());
             progressBar.setProgress((int)o.getProgress());
 
         }

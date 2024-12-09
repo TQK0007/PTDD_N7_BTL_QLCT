@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 
 import androidx.room.TypeConverter;
 
-import java.sql.Date;
+import java.util.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -21,8 +21,7 @@ public class Converters {
         try
         {
             @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            return (Date) dateFormat.parse(value);
-
+            return  dateFormat.parse(value);
         }
         catch (ParseException e)
         {
@@ -30,6 +29,7 @@ public class Converters {
         }
         return null;
     }
+
     @TypeConverter
 //    Phải để là static để RoomDB tự động gọi phương thức.
     public static String dateTimeToDate(Date value)
