@@ -4,6 +4,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,13 +22,13 @@ public class LongTermGoal implements Serializable {
 
     private double target;
 
-    private String deadline;
+    private Date deadline;
 
     private double progress;
 
     private boolean isDefault;
 
-    public LongTermGoal(String name, double target, String deadline, double progress, boolean isDefault) {
+    public LongTermGoal(String name, double target, Date deadline, double progress, boolean isDefault) {
         this.name = name;
         this.target = target;
         this.deadline = deadline;
