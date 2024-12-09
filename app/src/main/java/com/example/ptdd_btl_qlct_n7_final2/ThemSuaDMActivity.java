@@ -81,15 +81,24 @@ public class ThemSuaDMActivity extends AppCompatActivity {
                 Toast.makeText(this,"Vui lòng nhập tên danh mục và chọn ảnh",Toast.LENGTH_SHORT).show();
                 return;
             }
-            boolean isIncome = !isTienChiTab;
-            Category c = new Category
-                    (
-                            categoryName,
-                            iconNameCategory,
-                            isIncome
-                    );
-            if(isAdd) categoryDAO.add(c);
-            else categoryDAO.update(c);
+
+            if(isAdd)
+            {
+                boolean isIncome = !isTienChiTab;
+                Category newCategory = new Category
+                        (
+                                categoryName,
+                                iconNameCategory,
+                                isIncome
+                        );
+                categoryDAO.add(newCategory);
+            }
+            else
+            {
+                editCategory.setCategoryName(categoryName);
+                editCategory.setIconName(iconNameCategory);
+                categoryDAO.update(editCategory);
+            }
             navigateDanhMuc();
         });
     }
@@ -110,6 +119,7 @@ public class ThemSuaDMActivity extends AppCompatActivity {
         categoryDAO = AppDatabase.getInstance(this).categoryDAO();
     }
 
+//    Cấu hình động vì giao diện thêm và sửa dùng chung
     private void configView()
     {
 
@@ -164,6 +174,7 @@ public class ThemSuaDMActivity extends AppCompatActivity {
         imageViewList.add(binding.imgTravelTDMT);
         imageViewList.add(binding.imgClothesTDMT);
         imageViewList.add(binding.imgWifiTDMT);
+        imageViewList.add(binding.imgSaveTDMT);
 
 //        Dang ky su kien onclick cho cac imageView
         imageViewList.forEach(imageView -> {

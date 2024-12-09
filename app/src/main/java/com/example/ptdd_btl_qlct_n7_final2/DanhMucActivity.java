@@ -1,6 +1,8 @@
 package com.example.ptdd_btl_qlct_n7_final2;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -98,10 +100,24 @@ public class DanhMucActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                categoryList.remove(i);
-                categoryDAO.delete(categoryList.get(i));
-                danhMucAdapter.notifyDataSetChanged();
+                // Tạo một AlertDialog để xác nhận hành động
+                new AlertDialog.Builder(view.getContext())
+                        .setTitle("Xác nhận xoá")
+                        .setMessage("Bạn có chắc chắn muốn xoá danh mục này?")
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                categoryDAO.delete(categoryList.get(i));
+                                categoryList.remove(i);
+                                danhMucAdapter.notifyDataSetChanged();
+
+                            }
+                        })
+                        .setNegativeButton("Hủy", null)  // Không làm gì khi người dùng nhấn "Hủy"
+                        .show();
+
                 return true;
+
             }
         });
 
