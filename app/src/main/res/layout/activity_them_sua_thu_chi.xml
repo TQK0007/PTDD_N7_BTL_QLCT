@@ -23,6 +23,7 @@
             android:layout_marginStart="15dp"
             />
         <TextView
+            android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="70dp"
 
@@ -62,6 +63,7 @@
                 android:minHeight="48dp"/>
 
             <ImageView
+                android:id="@+id/imgDate"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_lich" />
@@ -99,6 +101,7 @@
         android:padding="8dp">
 
         <TextView
+            android:id="@+id/tvTTTC"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tiền thu"
@@ -114,78 +117,37 @@
             android:minHeight="48dp"/>
     </LinearLayout>
 
-    <GridLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:columnCount="3"
+        android:orientation="vertical"
         android:layout_marginTop="8dp"
+        android:padding="8dp"
+        android:visibility="visible"
+        android:id="@+id/layoutDMTK"
         >
-
-        <LinearLayout
-            android:layout_width="0dp"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:padding="20dp"
-            android:layout_marginBottom="20dp">
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/salary"
-                android:layout_marginBottom="5dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Lương"
-                android:textColor="@color/md_yellow_600"
-                android:textSize="12sp" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="0dp"
+            android:text="Danh mục tiết kiệm"
+            android:textSize="16sp" />
+        <Spinner
+            android:id="@+id/spinnerDMTK"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:padding="20dp"
-            android:layout_marginBottom="20dp">
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/gift"
-                android:layout_marginBottom="5dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tiền thưởng"
-                android:textColor="@color/md_red_600"
-                android:textSize="12sp" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:padding="20dp"
-            android:layout_marginBottom="20dp">
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/invest"
-                android:layout_marginBottom="5dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Giáo dục"
-                android:textColor="@color/md_green_600"
-                android:textSize="12sp" />
-        </LinearLayout>
+            />
+
+    </LinearLayout>
 
 
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:scrollbars="vertical"/>
 
-    </GridLayout>
 
     <TableRow
         android:layout_width="match_parent"

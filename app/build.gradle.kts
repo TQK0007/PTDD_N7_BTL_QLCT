@@ -52,4 +52,8 @@ dependencies {
     //RoomDB
     implementation(libs.room.runtime)
     annotationProcessor(libs.room.compiler)
+
+//    recyclerView
+    implementation( libs.recyclerview) // Check for the latest version
+
 }

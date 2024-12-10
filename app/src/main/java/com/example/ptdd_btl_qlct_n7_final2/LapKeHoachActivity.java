@@ -46,7 +46,7 @@ public class LapKeHoachActivity extends AppCompatActivity {
 
         getWidget();
         initQuery();
-        fakeData();
+//        fakeData();
         createLV();
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,10 +88,10 @@ public class LapKeHoachActivity extends AppCompatActivity {
     private void fakeData()
     {
 
-       Date date = new Date(2024,11,9);
+       Date date = new Date(2025,11,10);
 
         System.out.println("start");
-        LongTermGoal l = new LongTermGoal("Hưu trí",100.0,date,30.0,true);
+        LongTermGoal l = new LongTermGoal("Mua nhà",100.0,date,80.0,false);
 //        LongTermGoal updatel = new LongTermGoal(1,"Hưu trí",100.0,new Date(System.currentTimeMillis()),30.0,true);
         longTermGoalDAO.add(l);
         System.out.println("finish step 1");

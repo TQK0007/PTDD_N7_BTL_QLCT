@@ -15,7 +15,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(
-        tableName = "Transactions",
         foreignKeys = {
                 @ForeignKey(
                         entity = Category.class,
@@ -27,7 +26,7 @@ import lombok.NoArgsConstructor;
                         entity = LongTermGoal.class,
                         parentColumns = "id",
                         childColumns = "goalId",
-                        onDelete = ForeignKey.SET_NULL
+                        onDelete = ForeignKey.CASCADE
                 )
         }
 )
@@ -43,5 +42,15 @@ public class Transactions implements Serializable {
 
     private String type;
 
-    private int goalId;
+    private Integer goalId;
+
+    public Transactions(double amount, int categoryId, Date createdAt, String note, String type, Integer goalId) {
+        this.amount = amount;
+        this.categoryId = categoryId;
+        this.createdAt = createdAt;
+        this.note = note;
+        this.type = type;
+        this.goalId = goalId;
+    }
+
 }

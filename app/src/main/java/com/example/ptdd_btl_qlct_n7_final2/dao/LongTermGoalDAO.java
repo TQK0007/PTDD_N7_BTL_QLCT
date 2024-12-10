@@ -14,4 +14,13 @@ public interface LongTermGoalDAO extends DAO<LongTermGoal> {
     @Query(value = "Select * from LongTermGoal")
     List<LongTermGoal> getAll();
 
+    @Query(value = "select * from LongTermGoal where id =:id")
+    LongTermGoal findByID(int id);
+
+    @Query(value = "select name from LongTermGoal")
+    List<String> getAllLongTermGoalName();
+
+    @Query(value = "select id from LongTermGoal where name = :name")
+    int getLongTermGoalByName(String name);
+
 }

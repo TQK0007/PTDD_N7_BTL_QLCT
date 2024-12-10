@@ -1,9 +1,13 @@
 package com.example.ptdd_btl_qlct_n7_final2;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -12,8 +16,17 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.ptdd_btl_qlct_n7_final2.adapter.DanhMucAdapter;
+import com.example.ptdd_btl_qlct_n7_final2.adapter.ThuChiAdapter;
+import com.example.ptdd_btl_qlct_n7_final2.dao.CategoryDAO;
+import com.example.ptdd_btl_qlct_n7_final2.dao.TransactionsDAO;
+import com.example.ptdd_btl_qlct_n7_final2.database.AppDatabase;
 import com.example.ptdd_btl_qlct_n7_final2.databinding.ActivityDanhMucBinding;
 import com.example.ptdd_btl_qlct_n7_final2.databinding.ActivityThuChiBinding;
+import com.example.ptdd_btl_qlct_n7_final2.dto.TransactionsDTO;
+import com.example.ptdd_btl_qlct_n7_final2.entity.Transactions;
+
+import java.util.List;
 
 public class ThuChiActivity extends AppCompatActivity {
 
@@ -25,7 +38,15 @@ public class ThuChiActivity extends AppCompatActivity {
 
     private TextView tvTC, tvTT;
     private View indicatorTC, indicatorTT;
+    private ListView lvTC;
+
+    private List<TransactionsDTO> transactionsDTOS=null;
+
+    private ThuChiAdapter thuChiAdapter=null;
     private boolean isTienChiTab=true;
+
+
+    private TransactionsDAO transactionsDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +60,9 @@ public class ThuChiActivity extends AppCompatActivity {
         });
 
         getWidget();
+        initQuery();
+        createListView();
+
         imageViewBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,7 +72,7 @@ public class ThuChiActivity extends AppCompatActivity {
         imageViewAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                navigateThemSuaTC();
+                navigateThemSuaTCWithAdd();
             }
         });
 
@@ -60,6 +84,40 @@ public class ThuChiActivity extends AppCompatActivity {
             isTienChiTab=false;
             switchTab();
         });
+
+        lvTC.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Transactions transactions = transactionsDAO.findByID(transactionsDTOS.get(i).getTransactionId());
+                navigateThemSuaTCWithEdit(transactions);
+            }
+        });
+
+        lvTC.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                // Tạo một AlertDialog để xác nhận hành động
+                new AlertDialog.Builder(view.getContext())
+                        .setTitle("Xác nhận xoá")
+                        .setMessage("Bạn có chắc chắn muốn xoá danh mục này?")
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                Transactions delTransactions = transactionsDAO.findByID(transactionsDTOS.get(i).getTransactionId());
+                                transactionsDAO.delete(delTransactions);
+                                transactionsDTOS.remove(i);
+                                thuChiAdapter.notifyDataSetChanged();
+
+                            }
+                        })
+                        .setNegativeButton("Hủy", null)  // Không làm gì khi người dùng nhấn "Hủy"
+                        .show();
+
+                return true;
+            }
+        });
+
 
 
     }
@@ -79,7 +137,29 @@ public class ThuChiActivity extends AppCompatActivity {
         tvTC=binding.tvTC;
         tvTT=binding.tvTT;
 
+        lvTC=binding.lvTC;
+
     }
+
+// khoi tao truy van
+    private void initQuery()
+    {
+        transactionsDAO = AppDatabase.getInstance(this).transactionsDAO();
+    }
+
+    private void createListView()
+    {
+        if(isTienChiTab) transactionsDTOS = transactionsDAO.getAllTransactionsDtoByIncome(false);
+        else transactionsDTOS = transactionsDAO.getAllTransactionsDtoByIncome(true);
+        thuChiAdapter = new ThuChiAdapter(this,R.layout.fragment_thuchi_item,transactionsDTOS);
+        lvTC.setAdapter(thuChiAdapter);
+
+//        transactionsDTOS.forEach(System.out::println);
+
+        List<Transactions> test = transactionsDAO.getAll();
+        test.forEach(System.out::println);
+    }
+
 
     private void navigateHome()
     {
@@ -87,9 +167,20 @@ public class ThuChiActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void navigateThemSuaTC()
+    private void navigateThemSuaTCWithAdd()
     {
         intent = new Intent(ThuChiActivity.this, ThemSuaThuChiActivity.class);
+        intent.putExtra("isTienChiTab",isTienChiTab);
+        intent.putExtra("isAdd",true);
+        startActivity(intent);
+    }
+
+    private void navigateThemSuaTCWithEdit(Transactions transactions)
+    {
+        intent = new Intent(ThuChiActivity.this, ThemSuaThuChiActivity.class);
+        intent.putExtra("isTienChiTab",isTienChiTab);
+        intent.putExtra("isAdd",false);
+        intent.putExtra("transactions",transactions);
         startActivity(intent);
     }
 
@@ -103,6 +194,7 @@ public class ThuChiActivity extends AppCompatActivity {
             indicatorTC.setVisibility(View.VISIBLE);
             tvTT.setTextColor(getResources().getColor(R.color.black));
             indicatorTT.setVisibility(View.INVISIBLE);
+            createListView();
         }
         else
         {
@@ -111,6 +203,7 @@ public class ThuChiActivity extends AppCompatActivity {
             indicatorTT.setVisibility(View.VISIBLE);
             tvTC.setTextColor(getResources().getColor(R.color.black));
             indicatorTC.setVisibility(View.INVISIBLE);
+            createListView();
         }
 
     }
