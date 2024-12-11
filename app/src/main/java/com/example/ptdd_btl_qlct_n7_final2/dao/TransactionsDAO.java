@@ -18,9 +18,14 @@ public interface TransactionsDAO extends DAO<Transactions> {
     @Query(value = "select * from Transactions where transactionId = :id")
     Transactions findByID(int id);
 
-    @Query(value = "select transactionId,amount,createdAt, Category.categoryId,categoryName,iconName " +
+    @Query(value = "select transactionId,amount,createdAt,note, Category.categoryId,categoryName,iconName " +
             " from Transactions inner join Category on Transactions.categoryId=Category.categoryId " +
             "where Category.isIncome = :isIncome")
     List<TransactionsDTO> getAllTransactionsDtoByIncome(boolean isIncome);
+
+    @Query(value = "select transactionId,amount,createdAt,note, Category.categoryId,categoryName,iconName,isIncome " +
+            " from Transactions inner join Category on Transactions.categoryId=Category.categoryId " +
+            "where Category.categoryName like :categoryName")
+    List<TransactionsDTO> getAllTransactionsDtoByCategoryName(String categoryName);
 
 }

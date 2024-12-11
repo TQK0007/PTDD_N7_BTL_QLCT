@@ -42,6 +42,7 @@
         android:weightSum="2"
         >
         <ImageView
+            android:id="@+id/imgSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/search"
@@ -89,6 +90,7 @@
 
         android:weightSum="3">
         <TextView
+            android:id="@+id/txtTongTT"
             android:layout_height="30dp"
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -97,6 +99,7 @@
             android:gravity="center"
             android:textColor="@color/md_green_700"/>
         <TextView
+            android:id="@+id/txtTongTC"
             android:layout_height="30dp"
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -105,6 +108,7 @@
             android:gravity="center"
             android:textColor="@color/md_red_700"/>
         <TextView
+            android:id="@+id/txtTongThuChi"
             android:layout_height="30dp"
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -113,5 +117,16 @@
             android:gravity="center"
             />
     </TableRow>
+    <ListView
+        android:id="@+id/lvTC"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/txtThongBao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"/>
 
 </LinearLayout>

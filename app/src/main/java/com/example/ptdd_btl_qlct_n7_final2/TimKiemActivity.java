@@ -1,18 +1,34 @@
 package com.example.ptdd_btl_qlct_n7_final2;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.ptdd_btl_qlct_n7_final2.adapter.ThuChiAdapter;
+import com.example.ptdd_btl_qlct_n7_final2.dao.TransactionsDAO;
+import com.example.ptdd_btl_qlct_n7_final2.database.AppDatabase;
 import com.example.ptdd_btl_qlct_n7_final2.databinding.ActivityDanhMucBinding;
 import com.example.ptdd_btl_qlct_n7_final2.databinding.ActivityTimKiemBinding;
+import com.example.ptdd_btl_qlct_n7_final2.dto.TransactionsDTO;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TimKiemActivity extends AppCompatActivity {
 
@@ -20,7 +36,17 @@ public class TimKiemActivity extends AppCompatActivity {
 //    Moi viewBinding se quan ly cac thanh phan trong tung activity cu the
     private ActivityTimKiemBinding binding;
     private Intent intent;
-    private ImageView imageView;
+    private ImageView imageView, imgSearch;
+    private EditText txtSearch;
+    private TextView txtTongTT,txtTongTC,txtTongThuChi, txtThongBao;
+    private ListView lvTC;
+    private TransactionsDAO transactionsDAO;
+    private List<TransactionsDTO> transactionsDTOS=null;
+
+
+    private Handler handler = new Handler();
+    private Runnable runnable;
+
 
 
     @Override
@@ -35,12 +61,46 @@ public class TimKiemActivity extends AppCompatActivity {
         });
 
         getWidget();
+        initQuery();
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 navigateHome();
             }
         });
+
+        // Đặt thời gian chờ (đơn vị: milliseconds)
+        final long delayMillis = 1000;
+
+
+//        xu ly khi tim kiem thay doi
+        txtSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // Không cần xử lý ở đây
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Hủy runnable cũ (nếu có)
+                if (runnable != null) {
+                    handler.removeCallbacks(runnable);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // Khởi tạo runnable mới
+                runnable = () -> {
+                    createListViewBySearch(s.toString());
+                };
+
+                // Đặt runnable để chạy sau delayMillis
+                handler.postDelayed(runnable, delayMillis);
+            }
+        });
+
+
     }
 
 
@@ -51,8 +111,13 @@ public class TimKiemActivity extends AppCompatActivity {
         // Set layout cho Activity
         setContentView(binding.getRoot());
         imageView = binding.imageBack;
-
-
+        imgSearch = binding.imgSearch;
+        txtSearch = binding.txtSearch;
+        txtTongTT = binding.txtTongTT;
+        txtTongTC = binding.txtTongTC;
+        txtTongThuChi = binding.txtTongThuChi;
+        txtThongBao = binding.txtThongBao;
+        lvTC = binding.lvTC;
     }
     //
     private void navigateHome()
@@ -61,4 +126,42 @@ public class TimKiemActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    private void initQuery()
+    {
+        transactionsDAO = AppDatabase.getInstance(this).transactionsDAO();
+    }
+
+
+    private void createListViewBySearch(String categoryName)
+    {
+        transactionsDTOS = transactionsDAO.getAllTransactionsDtoByCategoryName(categoryName);
+        if(transactionsDTOS.isEmpty())
+        {
+            ThuChiAdapter adapter = new ThuChiAdapter(this,R.layout.fragment_thuchi_item,new ArrayList<>());
+            lvTC.setAdapter(adapter);
+            txtThongBao.setText("Không có kết quả");
+            return;
+        }
+        txtThongBao.setText("");
+        ThuChiAdapter adapter = new ThuChiAdapter(this,R.layout.fragment_thuchi_item,transactionsDTOS);
+        lvTC.setAdapter(adapter);
+
+//        tinh tong tien
+        double amount=0;
+        for(TransactionsDTO t : transactionsDTOS) amount += t.getAmount();
+
+//        thiet lap hien thi thong ke
+        if(transactionsDTOS.get(0).getIsIncome())
+        {
+            txtTongTT.setText(amount+"");
+            txtTongThuChi.setText(amount+"");
+            txtTongThuChi.setTextColor(ContextCompat.getColor(this, R.color.md_green_700));
+        }
+        else
+        {
+            txtTongTC.setText("-"+amount);
+            txtTongThuChi.setText("-"+amount);
+            txtTongThuChi.setTextColor(ContextCompat.getColor(this, R.color.md_red_700));
+        }
+    }
 }

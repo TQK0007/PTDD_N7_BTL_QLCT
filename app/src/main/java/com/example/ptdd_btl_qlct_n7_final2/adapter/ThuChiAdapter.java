@@ -48,6 +48,7 @@ public class ThuChiAdapter extends ArrayAdapter {
             final TextView tvTongTC = convertView.findViewById(R.id.tvTongTC);
             final TextView tv_Category = convertView.findViewById(R.id.tv_Category);
             final TextView tv_money = convertView.findViewById(R.id.tv_money);
+            final TextView tv_note = convertView.findViewById(R.id.tv_note);
 
 
             TransactionsDTO o = list.get(position);
@@ -59,6 +60,7 @@ public class ThuChiAdapter extends ArrayAdapter {
             tvTongTC.setText(o.getAmount()+"");
             tv_Category.setText(o.getCategoryName());
             tv_money.setText(o.getAmount()+"");
+            tv_note.setText(o.getNote());
 
             @SuppressLint("SimpleDateFormat")
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");

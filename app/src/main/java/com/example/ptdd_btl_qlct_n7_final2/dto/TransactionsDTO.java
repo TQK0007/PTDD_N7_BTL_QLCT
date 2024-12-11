@@ -15,6 +15,7 @@ public class TransactionsDTO {
     private int transactionId;
     private double amount;
     private Date createdAt;
+    private String note;
 
     private int categoryId;
 
@@ -22,5 +23,7 @@ public class TransactionsDTO {
 
     private String iconName;
 
+//    co the nhan gia trị null
+    private Boolean isIncome;
 
 }

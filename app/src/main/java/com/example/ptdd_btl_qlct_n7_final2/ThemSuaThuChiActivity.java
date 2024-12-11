@@ -317,7 +317,9 @@ public class ThemSuaThuChiActivity extends AppCompatActivity implements SelectLi
 
         int LongTermGoalID = longTermGoalDAO.getLongTermGoalByName(LongTermGoalName);
 
-        Transactions transactions = new Transactions(amout,categoryID,date,note,type, LongTermGoalID);
+        Transactions transactions = null;
+        if(LongTermGoalID==0) transactions=new Transactions(amout,categoryID,date,note,type, null);
+        else transactions=new Transactions(amout,categoryID,date,note,type, LongTermGoalID);
         transactionsDAO.add(transactions);
     }
 
