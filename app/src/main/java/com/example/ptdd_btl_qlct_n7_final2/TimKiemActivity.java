@@ -140,6 +140,9 @@ public class TimKiemActivity extends AppCompatActivity {
             ThuChiAdapter adapter = new ThuChiAdapter(this,R.layout.fragment_thuchi_item,new ArrayList<>());
             lvTC.setAdapter(adapter);
             txtThongBao.setText("Không có kết quả");
+            txtTongTT.setText("0đ");
+            txtTongTC.setText("0đ");
+            txtTongThuChi.setText("0đ");
             return;
         }
         txtThongBao.setText("");
@@ -153,12 +156,14 @@ public class TimKiemActivity extends AppCompatActivity {
 //        thiet lap hien thi thong ke
         if(transactionsDTOS.get(0).getIsIncome())
         {
+            txtTongTC.setText("0đ");
             txtTongTT.setText(amount+"");
             txtTongThuChi.setText(amount+"");
             txtTongThuChi.setTextColor(ContextCompat.getColor(this, R.color.md_green_700));
         }
         else
         {
+            txtTongTT.setText("0đ");
             txtTongTC.setText("-"+amount);
             txtTongThuChi.setText("-"+amount);
             txtTongThuChi.setTextColor(ContextCompat.getColor(this, R.color.md_red_700));
