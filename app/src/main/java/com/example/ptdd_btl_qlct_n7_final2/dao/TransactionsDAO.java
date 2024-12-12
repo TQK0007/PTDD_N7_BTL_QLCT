@@ -25,7 +25,7 @@ public interface TransactionsDAO extends DAO<Transactions> {
 
     @Query(value = "select transactionId,amount,createdAt,note, Category.categoryId,categoryName,iconName,isIncome " +
             " from Transactions inner join Category on Transactions.categoryId=Category.categoryId " +
-            "where Category.categoryName like :categoryName")
+            "where Category.categoryName like ('%'|| :categoryName ||'%')")
     List<TransactionsDTO> getAllTransactionsDtoByCategoryName(String categoryName);
 
 }

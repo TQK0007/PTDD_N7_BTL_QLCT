@@ -56,4 +56,13 @@ dependencies {
 //    recyclerView
     implementation( libs.recyclerview) // Check for the latest version
 
+
+    // chart
+    implementation(libs.mpandroidchart)
+
+//    MonthYearPickerDialog -> chi hien thi month va year
+    implementation (libs.material.v190)
+
+
+
 }
