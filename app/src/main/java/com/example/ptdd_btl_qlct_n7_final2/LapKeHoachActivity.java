@@ -1,5 +1,6 @@
 package com.example.ptdd_btl_qlct_n7_final2;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -46,7 +47,7 @@ public class LapKeHoachActivity extends AppCompatActivity {
 
         getWidget();
         initQuery();
-//        fakeData();
+        //fakeData();
         createLV();
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,6 +56,45 @@ public class LapKeHoachActivity extends AppCompatActivity {
             }
         });
         imageViewAdd.setOnClickListener(view -> navigateThemSuaKeHoach());
+
+        lvKH.setOnItemClickListener((parent, view, position, id) -> {
+            LongTermGoal selectedItem = longTermGoalList.get(position);
+
+            // Tạo Intent để chuyển màn hình
+            Intent intent = new Intent(this, ThemSuaKeHoachActivity.class);
+
+            // Truyền dữ liệu sang màn hình ThemSuaKeHoachActivity
+            intent.putExtra("id", selectedItem.getId());
+            intent.putExtra("name", selectedItem.getName());
+            intent.putExtra("targetAmount", selectedItem.getTarget());
+            intent.putExtra("currentProgress", selectedItem.getProgress());
+            intent.putExtra("deadline", selectedItem.getDeadline()); // Truyền kiểu long cho Date
+
+            // Chuyển sang màn hình ThemSuaKeHoachActivity
+            startActivity(intent);
+        });
+
+        // Sự kiện giữ lâu
+        lvKH.setOnItemLongClickListener((parent, view, position, id) -> {
+            LongTermGoal selectedItem = longTermGoalList.get(position);
+
+            // Tạo AlertDialog
+            new AlertDialog.Builder(this)
+                    .setTitle("Xác nhận xóa")
+                    .setMessage("Bạn có muốn xóa kế hoạch này không?")
+                    .setPositiveButton("Đồng ý", (dialog, which) -> {
+                        // Xóa kế hoạch từ danh sách
+                        longTermGoalList.remove(position);
+                        // Xóa kế hoạch từ cơ sở dữ liệu
+                        longTermGoalDAO.delete(selectedItem); // Gọi phương thức delete trong DAO để xóa khỏi cơ sở dữ liệu
+                        // Cập nhật lại ListView
+                        lapKeHoachAdapter.notifyDataSetChanged();
+                    })
+                    .setNegativeButton("Hủy", null) // Không làm gì khi nhấn "Hủy"
+                    .show();
+
+            return true; // Trả về true để xử lý sự kiện giữ lâu
+        });
 
     }
 
@@ -88,19 +128,38 @@ public class LapKeHoachActivity extends AppCompatActivity {
     private void fakeData()
     {
 
-       Date date = new Date(2025,11,10);
+        java.util.Date currentDate = new java.util.Date();
 
-        System.out.println("start");
-        LongTermGoal l = new LongTermGoal("Mua nhà",100.0,date,80.0,false);
+        // Chuyển đổi sang `java.sql.Date`
+        Date date = new Date(currentDate.getTime());
+
+        System.out.println(date);
+        LongTermGoal l = new LongTermGoal("Hưu trí",100.0,date,30.0,true);
 //        LongTermGoal updatel = new LongTermGoal(1,"Hưu trí",100.0,new Date(System.currentTimeMillis()),30.0,true);
         longTermGoalDAO.add(l);
         System.out.println("finish step 1");
 
-        LongTermGoal longTermGoalNeed = longTermGoalDAO.findByID(1);
-        System.out.println("finish step 2");
-        System.out.println(longTermGoalNeed);
-
     }
+
+    private void resetData() {
+        // Lấy danh sách tất cả các mục từ DAO
+        List<LongTermGoal> allGoals = longTermGoalDAO.getAll();
+
+        // Kiểm tra danh sách có mục nào không
+        if (allGoals != null && !allGoals.isEmpty()) {
+            for (LongTermGoal goal : allGoals) {
+                // Xóa từng mục
+                longTermGoalDAO.delete(goal);
+            }
+            System.out.println("All data has been reset.");
+        } else {
+            System.out.println("No data to reset.");
+        }
+
+        // Cập nhật lại ListView sau khi reset
+        createLV();
+    }
+
 
     private void createLV()
     {

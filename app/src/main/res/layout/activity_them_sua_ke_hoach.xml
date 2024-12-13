@@ -23,9 +23,9 @@
             android:layout_marginStart="15dp"
             />
         <TextView
+            android:id="@+id/tv_title_goal"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-
             android:gravity="center_vertical"
             android:text="Thêm kế hoạch"
             android:textColor="@color/white"
@@ -57,8 +57,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="11/11/2000 (CN)"
-                android:focusable="false"
+                android:hint="Mua nhà"
                 android:minHeight="48dp"/>
         </LinearLayout>
     </LinearLayout>
@@ -73,14 +72,15 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mục tiêu"
+            android:text="Mục tiêu (VNĐ)"
             android:textSize="16sp" />
 
         <EditText
             android:id="@+id/et_target_amount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Chưa nhập"
+            android:hint="100000000"
+            android:inputType="numberDecimal"
             android:autofillHints="@color/md_yellow_800"
             android:textSize="14sp"
             android:minHeight="48dp"/>
@@ -96,21 +96,45 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tiến độ hiện tại"
+            android:text="Tiến độ hiện tại (VNĐ)"
             android:textSize="16sp" />
 
         <EditText
             android:id="@+id/et_current_amount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="50%"
+            android:hint="100000"
             android:inputType="numberDecimal"
             android:textSize="16sp"
             android:minHeight="48dp"/>
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="8dp"
+        android:padding="8dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ngày kết thúc"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/et_deadline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Chọn ngày"
+            android:focusable="false"
+            android:textSize="14sp"
+            android:minHeight="48dp"/>
+    </LinearLayout>
+
+
+
     <Button
-        android:id="@+id/btnThemKeHoach"
+        android:id="@+id/btn_save"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"

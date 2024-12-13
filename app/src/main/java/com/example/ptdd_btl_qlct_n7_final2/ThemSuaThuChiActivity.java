@@ -34,6 +34,7 @@ import com.example.ptdd_btl_qlct_n7_final2.dao.TransactionsDAO;
 import com.example.ptdd_btl_qlct_n7_final2.database.AppDatabase;
 import com.example.ptdd_btl_qlct_n7_final2.databinding.ActivityThemSuaThuChiBinding;
 import com.example.ptdd_btl_qlct_n7_final2.entity.Category;
+import com.example.ptdd_btl_qlct_n7_final2.entity.LongTermGoal;
 import com.example.ptdd_btl_qlct_n7_final2.entity.Transactions;
 
 import java.text.ParseException;
@@ -155,8 +156,6 @@ public class ThemSuaThuChiActivity extends AppCompatActivity implements SelectLi
             {
                 isNotTabTienChiAndEdit();
             }
-            intent = new Intent(ThemSuaThuChiActivity.this,ThuChiActivity.class);
-            startActivity(intent);
         });
 
         spinnerDMTK.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -318,9 +317,27 @@ public class ThemSuaThuChiActivity extends AppCompatActivity implements SelectLi
         int LongTermGoalID = longTermGoalDAO.getLongTermGoalByName(LongTermGoalName);
 
         Transactions transactions = null;
-        if(LongTermGoalID==0) transactions=new Transactions(amout,categoryID,date,note,type, null);
-        else transactions=new Transactions(amout,categoryID,date,note,type, LongTermGoalID);
-        transactionsDAO.add(transactions);
+        if(LongTermGoalID==0)
+        {
+            transactions=new Transactions(amout,categoryID,date,note,type, null);
+            transactionsDAO.add(transactions);
+        }
+        else
+        {
+            transactions=new Transactions(amout,categoryID,date,note,type, LongTermGoalID);
+
+            transactionsDAO.add(transactions);
+
+            //        cap nhat tien trinh cho tiet kiem
+            LongTermGoal updateLongTermGoal = longTermGoalDAO.findByID(LongTermGoalID);
+            double updateProcess = updateLongTermGoal.getProgress()+amout;
+            updateLongTermGoal.setProgress(updateProcess);
+            longTermGoalDAO.update(updateLongTermGoal);
+        }
+
+        intent = new Intent(ThemSuaThuChiActivity.this,ThuChiActivity.class);
+        startActivity(intent);
+
     }
 
     private void isNotTabTienChiAndAdd()
@@ -400,6 +417,9 @@ public class ThemSuaThuChiActivity extends AppCompatActivity implements SelectLi
         editTransactions.setCategoryId(categoryID);
         transactionsDAO.update(editTransactions);
 
+        intent = new Intent(ThemSuaThuChiActivity.this,ThuChiActivity.class);
+        startActivity(intent);
+
     }
     private void isTabTienChiAndEdit()
     {
@@ -443,6 +463,10 @@ public class ThemSuaThuChiActivity extends AppCompatActivity implements SelectLi
         }
 
         int LongTermGoalID = longTermGoalDAO.getLongTermGoalByName(LongTermGoalName);
+        LongTermGoal updateLongTermGoal = longTermGoalDAO.findByID(LongTermGoalID);
+
+//        tru di khoan tien da them
+        double beforUpdateProcess = updateLongTermGoal.getProgress()-editTransactions.getAmount();
 
         //        cap nhat du lieu
         editTransactions.setCreatedAt(date);
@@ -451,6 +475,16 @@ public class ThemSuaThuChiActivity extends AppCompatActivity implements SelectLi
         editTransactions.setCategoryId(categoryID);
         editTransactions.setGoalId(LongTermGoalID);
         transactionsDAO.update(editTransactions);
+
+
+        //        cap nhat tien trinh cho tiet kiem
+
+        double updateProcess = beforUpdateProcess+amout;
+        updateLongTermGoal.setProgress(updateProcess);
+        longTermGoalDAO.update(updateLongTermGoal);
+
+        intent = new Intent(ThemSuaThuChiActivity.this,ThuChiActivity.class);
+        startActivity(intent);
     }
 
     private void createSprinner()
