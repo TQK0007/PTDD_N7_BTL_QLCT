@@ -19,11 +19,13 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.ptdd_btl_qlct_n7_final2.adapter.DanhMucAdapter;
 import com.example.ptdd_btl_qlct_n7_final2.adapter.ThuChiAdapter;
 import com.example.ptdd_btl_qlct_n7_final2.dao.CategoryDAO;
+import com.example.ptdd_btl_qlct_n7_final2.dao.LongTermGoalDAO;
 import com.example.ptdd_btl_qlct_n7_final2.dao.TransactionsDAO;
 import com.example.ptdd_btl_qlct_n7_final2.database.AppDatabase;
 import com.example.ptdd_btl_qlct_n7_final2.databinding.ActivityDanhMucBinding;
 import com.example.ptdd_btl_qlct_n7_final2.databinding.ActivityThuChiBinding;
 import com.example.ptdd_btl_qlct_n7_final2.dto.TransactionsDTO;
+import com.example.ptdd_btl_qlct_n7_final2.entity.LongTermGoal;
 import com.example.ptdd_btl_qlct_n7_final2.entity.Transactions;
 
 import java.util.List;
@@ -47,6 +49,7 @@ public class ThuChiActivity extends AppCompatActivity {
 
 
     private TransactionsDAO transactionsDAO;
+    private LongTermGoalDAO longTermGoalDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +102,7 @@ public class ThuChiActivity extends AppCompatActivity {
                 // Tạo một AlertDialog để xác nhận hành động
                 new AlertDialog.Builder(view.getContext())
                         .setTitle("Xác nhận xoá")
-                        .setMessage("Bạn có chắc chắn muốn xoá danh mục này?")
+                        .setMessage("Bạn có chắc chắn muốn xoá khoản thu chi này?")
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -108,6 +111,16 @@ public class ThuChiActivity extends AppCompatActivity {
                                 transactionsDAO.delete(delTransactions);
                                 transactionsDTOS.remove(i);
                                 thuChiAdapter.notifyDataSetChanged();
+
+//                                cap nhat danh LongTermGoal
+                                Integer longTermGoalID = delTransactions.getGoalId();
+                                if(longTermGoalID != null)
+                                {
+                                    LongTermGoal updateLongTermGoal = longTermGoalDAO.findByID(longTermGoalID);
+                                    double updateProcess = updateLongTermGoal.getProgress()-delTransactions.getAmount();
+                                    updateLongTermGoal.setProgress(updateProcess);
+                                    longTermGoalDAO.update(updateLongTermGoal);
+                                }
 
                             }
                         })
@@ -145,6 +158,7 @@ public class ThuChiActivity extends AppCompatActivity {
     private void initQuery()
     {
         transactionsDAO = AppDatabase.getInstance(this).transactionsDAO();
+        longTermGoalDAO = AppDatabase.getInstance(this).longTermGoalDAO();
     }
 
     private void createListView()
@@ -153,11 +167,6 @@ public class ThuChiActivity extends AppCompatActivity {
         else transactionsDTOS = transactionsDAO.getAllTransactionsDtoByIncome(true);
         thuChiAdapter = new ThuChiAdapter(this,R.layout.fragment_thuchi_item,transactionsDTOS);
         lvTC.setAdapter(thuChiAdapter);
-
-//        transactionsDTOS.forEach(System.out::println);
-
-        List<Transactions> test = transactionsDAO.getAll();
-        test.forEach(System.out::println);
     }
 
 

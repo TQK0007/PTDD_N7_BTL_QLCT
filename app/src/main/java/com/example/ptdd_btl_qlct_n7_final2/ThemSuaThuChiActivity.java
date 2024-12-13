@@ -367,15 +367,15 @@ public class ThemSuaThuChiActivity extends AppCompatActivity implements SelectLi
         try {
             // Chuyển chuỗi sang Date
             date = dateFormat.parse(dateString);
-            System.out.println("Date: " + date);
         } catch (ParseException e) {
-            // Xử lý ngoại lệ nếu chuỗi không đúng định dạng
-            System.out.println("Định dạng ngày tháng không hợp lệ!");
             e.printStackTrace();
         }
 
         Transactions transactions = new Transactions(amout,categoryID,date,note,type,null);
         transactionsDAO.add(transactions);
+
+        intent = new Intent(ThemSuaThuChiActivity.this,ThuChiActivity.class);
+        startActivity(intent);
     }
 
     private void isNotTabTienChiAndEdit()
