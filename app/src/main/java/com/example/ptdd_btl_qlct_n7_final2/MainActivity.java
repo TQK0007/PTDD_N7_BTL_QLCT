@@ -140,12 +140,11 @@ public class MainActivity extends AppCompatActivity {
                 boolean isIncome = !isTienChiTab;
                 List<CategoryDTO> categoryDTOWithCondition  = categoryDTOs.stream().filter(c->c.isIncome()==isIncome).collect(Collectors.toList());
                 intent.putExtra("categoryName",categoryDTOWithCondition.get(i).getCategoryName());
-                intent.putExtra("amount",categoryDTOs.get(i).getAmount());
+                intent.putExtra("amount",categoryDTOWithCondition.get(i).getAmount());
                 startActivity(intent);
             }
         });
     }
-
 
     @SuppressLint("RestrictedApi")
     @Override
@@ -235,9 +234,6 @@ public class MainActivity extends AppCompatActivity {
 
 //        lay danh sach
         categoryDTOs = categoryDAO.getAllByDate(formattedDate);
-        System.out.println("Number of list: "+categoryDTOs.size());
-        System.out.println("List data: ");
-        categoryDTOs.forEach(System.out::println);
 
         double tongTT=0, tongTC=0, tongThuChi=0;
         for(CategoryDTO c : categoryDTOs)
