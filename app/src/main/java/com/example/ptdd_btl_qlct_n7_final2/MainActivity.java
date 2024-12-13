@@ -11,6 +11,7 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -26,6 +27,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.ptdd_btl_qlct_n7_final2.adapter.DanhSachTKAdapter;
 import com.example.ptdd_btl_qlct_n7_final2.dao.CategoryDAO;
 import com.example.ptdd_btl_qlct_n7_final2.database.AppDatabase;
 import com.example.ptdd_btl_qlct_n7_final2.databinding.ActivityMainBinding;
@@ -66,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
     private CategoryDAO categoryDAO;
     private List<CategoryDTO> categoryDTOs;
 
+    private String yearForBarChart="", monthForBarChart="";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,17 +87,20 @@ public class MainActivity extends AppCompatActivity {
         crateDefaultDate();
         createInformationThuChi();
         createPieChart(false);
+        createLV(false);
 
 
         tvTC.setOnClickListener(view -> {
             isTienChiTab=true;
             switchTab();
             createPieChart(false);
+            createLV(false);
         });
         tvTT.setOnClickListener(view -> {
             isTienChiTab=false;
             switchTab();
             createPieChart(true);
+            createLV(true);
         });
 
         editMonth.setOnClickListener(view -> {
@@ -119,9 +126,24 @@ public class MainActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 createInformationThuChi();
                 createPieChart(false);
+                createLV(false);
             }
         });
 
+        lvTKDM.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(MainActivity.this,BieuDoActivity.class);
+                intent.putExtra("year",yearForBarChart);
+                intent.putExtra("month",monthForBarChart);
+
+                boolean isIncome = !isTienChiTab;
+                List<CategoryDTO> categoryDTOWithCondition  = categoryDTOs.stream().filter(c->c.isIncome()==isIncome).collect(Collectors.toList());
+                intent.putExtra("categoryName",categoryDTOWithCondition.get(i).getCategoryName());
+                intent.putExtra("amount",categoryDTOs.get(i).getAmount());
+                startActivity(intent);
+            }
+        });
     }
 
 
@@ -213,6 +235,7 @@ public class MainActivity extends AppCompatActivity {
 
 //        lay danh sach
         categoryDTOs = categoryDAO.getAllByDate(formattedDate);
+        System.out.println("Number of list: "+categoryDTOs.size());
         System.out.println("List data: ");
         categoryDTOs.forEach(System.out::println);
 
@@ -239,7 +262,7 @@ public class MainActivity extends AppCompatActivity {
             entries.add(new PieEntry((float) categoryDTO.getAmount(), categoryDTO.getCategoryName()));
         });
 
-        PieDataSet pieDataSet = new PieDataSet(entries,"Subject");
+        PieDataSet pieDataSet = new PieDataSet(entries,"Category");
         pieDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
 
 //        Thiet lap kich thuoc font chu
@@ -261,7 +284,7 @@ public class MainActivity extends AppCompatActivity {
         pieChart.invalidate();
 
 //      bo chu thich
-        pieChart.getLegend().setEnabled(true);
+        pieChart.getLegend().setEnabled(false);
 
 //        chinh che do %
         pieChart.setUsePercentValues(true);
@@ -283,6 +306,8 @@ public class MainActivity extends AppCompatActivity {
             month=localDate.getMonthValue();
 
         }
+        yearForBarChart = String.valueOf(year);
+        monthForBarChart = String.valueOf(month);
         editMonth.setText(month+"/"+year);
     }
 
@@ -292,6 +317,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                 editMonth.setText((i1+1) + "/" + i);
+                yearForBarChart = String.valueOf(i);
+                monthForBarChart = String.valueOf((i1+1));
             }
         };
         LocalDate localDate = null;
@@ -330,6 +357,13 @@ public class MainActivity extends AppCompatActivity {
         return formattedDate;
     }
 
+    private void createLV(boolean condition)
+    {
+//        loc tra nhung phan tu theo dieu kien
+        List<CategoryDTO> categoryDTOWithIncome = categoryDTOs.stream().filter(c->c.isIncome()==condition).collect(Collectors.toList());
+        DanhSachTKAdapter adapter = new DanhSachTKAdapter(this,R.layout.fragment_thongke_item,categoryDTOWithIncome);
+        lvTKDM.setAdapter(adapter);
+    }
 
 
     private void switchTab() {

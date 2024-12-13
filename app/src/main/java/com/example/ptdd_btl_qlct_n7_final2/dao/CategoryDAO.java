@@ -20,9 +20,10 @@ public interface CategoryDAO extends DAO<Category>{
     List<Category> getAllByIsIncome(boolean isIncone);
 
 
-    @Query(value = "Select categoryName,iconName,isIncome,Transactions.amount " +
+    @Query(value = "Select categoryName,iconName,isIncome,sum(Transactions.amount) as amount " +
             "from Category inner join Transactions on Category.categoryId = Transactions.categoryId " +
             "where strftime('%Y-%m', Transactions.createdAt) like :date " +
             "group by categoryName")
     List<CategoryDTO> getAllByDate(String date);
+
 }

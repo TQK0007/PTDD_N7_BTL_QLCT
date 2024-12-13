@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BieuDoActivity"
+    android:orientation="vertical">
+
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        android:background="@color/md_yellow_800">
+        <ImageView
+            android:id="@+id/image_back"
+            android:src="@drawable/back"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            app:tint="@color/white"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="15dp"
+            />
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:gravity="center_vertical"
+            android:text="Ăn uống tháng (T12) 100000đ"
+            android:textColor="@color/white"
+            android:layout_marginStart="40dp"
+            android:textSize="20sp"/>
+    </TableRow>
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/barChart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="100dp"/>
+
+</LinearLayout>
