@@ -1,4 +1,4 @@
-package com.example.ptdd_btl_qlct_n7_final2;
+package com.example.ptdd_btl_qlct_n7_final2.activity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -19,9 +19,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.example.ptdd_btl_qlct_n7_final2.R;
 import com.example.ptdd_btl_qlct_n7_final2.database.AppDatabase;
-import com.example.ptdd_btl_qlct_n7_final2.databinding.ActivityThemSuaDmactivityBinding;
-import com.example.ptdd_btl_qlct_n7_final2.databinding.ActivityThemSuaKeHoachBinding;
 import com.example.ptdd_btl_qlct_n7_final2.entity.LongTermGoal;
 import com.example.ptdd_btl_qlct_n7_final2.dao.LongTermGoalDAO;
 

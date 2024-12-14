@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LapKeHoachActivity"
+    tools:context=".activity.LapKeHoachActivity"
     android:orientation="vertical">
 
     <TableRow
@@ -45,7 +45,7 @@
     <ListView
         android:id="@+id/lvKeHoach"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"/>
 
 
 

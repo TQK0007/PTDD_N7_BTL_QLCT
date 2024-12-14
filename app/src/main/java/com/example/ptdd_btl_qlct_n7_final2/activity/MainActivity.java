@@ -1,9 +1,8 @@
-package com.example.ptdd_btl_qlct_n7_final2;
+package com.example.ptdd_btl_qlct_n7_final2.activity;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -27,6 +26,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.ptdd_btl_qlct_n7_final2.R;
 import com.example.ptdd_btl_qlct_n7_final2.adapter.DanhSachTKAdapter;
 import com.example.ptdd_btl_qlct_n7_final2.dao.CategoryDAO;
 import com.example.ptdd_btl_qlct_n7_final2.database.AppDatabase;
@@ -37,7 +37,6 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
-import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.text.DateFormat;

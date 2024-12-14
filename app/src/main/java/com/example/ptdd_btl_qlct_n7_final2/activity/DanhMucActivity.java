@@ -1,19 +1,14 @@
-package com.example.ptdd_btl_qlct_n7_final2;
+package com.example.ptdd_btl_qlct_n7_final2.activity;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.Base64;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,14 +16,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.ptdd_btl_qlct_n7_final2.R;
 import com.example.ptdd_btl_qlct_n7_final2.adapter.DanhMucAdapter;
 import com.example.ptdd_btl_qlct_n7_final2.dao.CategoryDAO;
 import com.example.ptdd_btl_qlct_n7_final2.database.AppDatabase;
 import com.example.ptdd_btl_qlct_n7_final2.databinding.ActivityDanhMucBinding;
-import com.example.ptdd_btl_qlct_n7_final2.databinding.ActivityMainBinding;
 import com.example.ptdd_btl_qlct_n7_final2.entity.Category;
 
-import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 public class DanhMucActivity extends AppCompatActivity {

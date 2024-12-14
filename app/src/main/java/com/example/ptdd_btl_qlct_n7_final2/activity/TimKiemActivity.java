@@ -1,6 +1,5 @@
-package com.example.ptdd_btl_qlct_n7_final2;
+package com.example.ptdd_btl_qlct_n7_final2.activity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,7 +10,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,10 +18,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.ptdd_btl_qlct_n7_final2.R;
 import com.example.ptdd_btl_qlct_n7_final2.adapter.ThuChiAdapter;
 import com.example.ptdd_btl_qlct_n7_final2.dao.TransactionsDAO;
 import com.example.ptdd_btl_qlct_n7_final2.database.AppDatabase;
-import com.example.ptdd_btl_qlct_n7_final2.databinding.ActivityDanhMucBinding;
 import com.example.ptdd_btl_qlct_n7_final2.databinding.ActivityTimKiemBinding;
 import com.example.ptdd_btl_qlct_n7_final2.dto.TransactionsDTO;
 
@@ -135,7 +133,7 @@ public class TimKiemActivity extends AppCompatActivity {
     private void createListViewBySearch(String categoryName)
     {
         transactionsDTOS = transactionsDAO.getAllTransactionsDtoByCategoryName(categoryName);
-        if(transactionsDTOS.isEmpty())
+        if(transactionsDTOS.isEmpty() || categoryName.isEmpty())
         {
             ThuChiAdapter adapter = new ThuChiAdapter(this,R.layout.fragment_thuchi_item,new ArrayList<>());
             lvTC.setAdapter(adapter);

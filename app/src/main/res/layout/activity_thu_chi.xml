@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ThuChiActivity"
+    tools:context=".activity.ThuChiActivity"
     android:orientation="vertical">
     <TableRow
         android:layout_width="match_parent"
@@ -120,5 +120,5 @@
     <ListView
         android:id="@+id/lvTC"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"/>
 </LinearLayout>

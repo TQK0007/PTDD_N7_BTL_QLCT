@@ -13,31 +13,31 @@
         android:theme="@style/Theme.PTDD_BTL_QLCT_N7_final2"
         tools:targetApi="31">
         <activity
-            android:name=".BieuDoActivity"
+            android:name=".activity.BieuDoActivity"
             android:exported="false" />
         <activity
-            android:name=".ThemSuaKeHoachActivity"
+            android:name=".activity.ThemSuaKeHoachActivity"
             android:exported="false" />
         <activity
-            android:name=".ThemSuaThuChiActivity"
+            android:name=".activity.ThemSuaThuChiActivity"
             android:exported="false" />
         <activity
-            android:name=".ThemSuaDMActivity"
+            android:name=".activity.ThemSuaDMActivity"
             android:exported="false" />
         <activity
-            android:name=".TimKiemActivity"
+            android:name=".activity.TimKiemActivity"
             android:exported="false" />
         <activity
-            android:name=".ThuChiActivity"
+            android:name=".activity.ThuChiActivity"
             android:exported="false" />
         <activity
-            android:name=".LapKeHoachActivity"
+            android:name=".activity.LapKeHoachActivity"
             android:exported="false" />
         <activity
-            android:name=".DanhMucActivity"
+            android:name=".activity.DanhMucActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,4 +1,4 @@
-package com.example.ptdd_btl_qlct_n7_final2;
+package com.example.ptdd_btl_qlct_n7_final2.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -19,10 +19,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.ptdd_btl_qlct_n7_final2.R;
 import com.example.ptdd_btl_qlct_n7_final2.dao.CategoryDAO;
 import com.example.ptdd_btl_qlct_n7_final2.database.AppDatabase;
 import com.example.ptdd_btl_qlct_n7_final2.databinding.ActivityThemSuaDmactivityBinding;
-import com.example.ptdd_btl_qlct_n7_final2.databinding.ActivityThemSuaThuChiBinding;
 import com.example.ptdd_btl_qlct_n7_final2.entity.Category;
 
 import java.io.ByteArrayOutputStream;

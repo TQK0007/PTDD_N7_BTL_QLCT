@@ -1,4 +1,4 @@
-package com.example.ptdd_btl_qlct_n7_final2;
+package com.example.ptdd_btl_qlct_n7_final2.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -12,6 +12,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.ptdd_btl_qlct_n7_final2.R;
 import com.example.ptdd_btl_qlct_n7_final2.dao.CategoryDAO;
 import com.example.ptdd_btl_qlct_n7_final2.dao.TransactionsDAO;
 import com.example.ptdd_btl_qlct_n7_final2.database.AppDatabase;
@@ -27,10 +28,7 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 public class BieuDoActivity extends AppCompatActivity {
 

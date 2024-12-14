@@ -1,4 +1,4 @@
-package com.example.ptdd_btl_qlct_n7_final2;
+package com.example.ptdd_btl_qlct_n7_final2.activity;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
@@ -26,6 +26,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.ptdd_btl_qlct_n7_final2.R;
 import com.example.ptdd_btl_qlct_n7_final2.adapter.DanhSachDMAdapter;
 import com.example.ptdd_btl_qlct_n7_final2.adapter.SelectListener;
 import com.example.ptdd_btl_qlct_n7_final2.dao.CategoryDAO;

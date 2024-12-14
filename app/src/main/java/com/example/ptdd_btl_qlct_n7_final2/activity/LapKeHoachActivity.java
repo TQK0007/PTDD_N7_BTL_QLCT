@@ -1,4 +1,4 @@
-package com.example.ptdd_btl_qlct_n7_final2;
+package com.example.ptdd_btl_qlct_n7_final2.activity;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -13,6 +13,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.ptdd_btl_qlct_n7_final2.R;
 import com.example.ptdd_btl_qlct_n7_final2.adapter.LapKeHoachAdapter;
 import com.example.ptdd_btl_qlct_n7_final2.dao.LongTermGoalDAO;
 import com.example.ptdd_btl_qlct_n7_final2.database.AppDatabase;
