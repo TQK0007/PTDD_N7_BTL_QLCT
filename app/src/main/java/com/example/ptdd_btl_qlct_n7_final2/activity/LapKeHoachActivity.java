@@ -3,7 +3,6 @@ package com.example.ptdd_btl_qlct_n7_final2.activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -14,6 +13,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.ptdd_btl_qlct_n7_final2.R;
+import com.example.ptdd_btl_qlct_n7_final2.ThemSuaKeHoachActivity;
 import com.example.ptdd_btl_qlct_n7_final2.adapter.LapKeHoachAdapter;
 import com.example.ptdd_btl_qlct_n7_final2.dao.LongTermGoalDAO;
 import com.example.ptdd_btl_qlct_n7_final2.database.AppDatabase;
@@ -25,15 +25,11 @@ import java.util.List;
 
 public class LapKeHoachActivity extends AppCompatActivity {
 
-    //    Khai bao viewBinding ung voi activity
-//    Moi viewBinding se quan ly cac thanh phan trong tung activity cu the
     private ActivityLapKeHoachBinding binding;
-    private Intent intent;
-    private ImageView imageView, imageViewAdd;
     private LongTermGoalDAO longTermGoalDAO;
     private ListView lvKH;
     private LapKeHoachAdapter lapKeHoachAdapter;
-    List<LongTermGoal> longTermGoalList=null;
+    private List<LongTermGoal> longTermGoalList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,131 +42,92 @@ public class LapKeHoachActivity extends AppCompatActivity {
             return insets;
         });
 
-        getWidget();
-        initQuery();
-        //fakeData();
-        createLV();
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                navigateHome();
-            }
-        });
-        imageViewAdd.setOnClickListener(view -> navigateThemSuaKeHoach());
+        initializeViews(); //
+        initializeDatabase(); //ket noi database
+        loadListView();
 
-        lvKH.setOnItemClickListener((parent, view, position, id) -> {
-            LongTermGoal selectedItem = longTermGoalList.get(position);
-
-            // Tạo Intent để chuyển màn hình
-            Intent intent = new Intent(this, ThemSuaKeHoachActivity.class);
-
-            // Truyền dữ liệu sang màn hình ThemSuaKeHoachActivity
-            intent.putExtra("id", selectedItem.getId());
-            intent.putExtra("name", selectedItem.getName());
-            intent.putExtra("targetAmount", selectedItem.getTarget());
-            intent.putExtra("currentProgress", selectedItem.getProgress());
-            intent.putExtra("deadline", selectedItem.getDeadline()); // Truyền kiểu long cho Date
-
-            // Chuyển sang màn hình ThemSuaKeHoachActivity
-            startActivity(intent);
-        });
-
-        // Sự kiện giữ lâu
-        lvKH.setOnItemLongClickListener((parent, view, position, id) -> {
-            LongTermGoal selectedItem = longTermGoalList.get(position);
-
-            // Tạo AlertDialog
-            new AlertDialog.Builder(this)
-                    .setTitle("Xác nhận xóa")
-                    .setMessage("Bạn có muốn xóa kế hoạch này không?")
-                    .setPositiveButton("Đồng ý", (dialog, which) -> {
-                        // Xóa kế hoạch từ danh sách
-                        longTermGoalList.remove(position);
-                        // Xóa kế hoạch từ cơ sở dữ liệu
-                        longTermGoalDAO.delete(selectedItem); // Gọi phương thức delete trong DAO để xóa khỏi cơ sở dữ liệu
-                        // Cập nhật lại ListView
-                        lapKeHoachAdapter.notifyDataSetChanged();
-                    })
-                    .setNegativeButton("Hủy", null) // Không làm gì khi nhấn "Hủy"
-                    .show();
-
-            return true; // Trả về true để xử lý sự kiện giữ lâu
-        });
-
+        setupEventHandlers();
     }
 
-    private void getWidget()
-    {
+    private void initializeViews() {
         binding = ActivityLapKeHoachBinding.inflate(getLayoutInflater());
-
-        // Set layout cho Activity
         setContentView(binding.getRoot());
-        imageView = binding.imageBack;
-        imageViewAdd = binding.imageAdd;
+
         lvKH = binding.lvKeHoach;
     }
 
-    private void navigateHome()
-    {
-        intent = new Intent(LapKeHoachActivity.this, MainActivity.class);
-        startActivity(intent);
-    }
-
-    private void navigateThemSuaKeHoach() {
-        intent = new Intent(LapKeHoachActivity.this,ThemSuaKeHoachActivity.class);
-        startActivity(intent);
-    }
-
-    private void initQuery()
-    {
+    private void initializeDatabase() {
         longTermGoalDAO = AppDatabase.getInstance(this).longTermGoalDAO();
     }
 
-    private void fakeData()
-    {
+    private void loadListView() {
+        longTermGoalList = longTermGoalDAO.getAll();
+        lapKeHoachAdapter = new LapKeHoachAdapter(this, R.layout.fragment_kehoach_item, longTermGoalList);
+        lvKH.setAdapter(lapKeHoachAdapter);
+    }
 
-        java.util.Date currentDate = new java.util.Date();
+    private void setupEventHandlers() {
+        binding.imageBack.setOnClickListener(view -> navigateToHome());
 
-        // Chuyển đổi sang `java.sql.Date`
-        Date date = new Date(currentDate.getTime());
+        binding.imageAdd.setOnClickListener(view -> navigateToAddOrEditPlan());
 
-        System.out.println(date);
-        LongTermGoal l = new LongTermGoal("Hưu trí",100.0,date,30.0,true);
-//        LongTermGoal updatel = new LongTermGoal(1,"Hưu trí",100.0,new Date(System.currentTimeMillis()),30.0,true);
-        longTermGoalDAO.add(l);
-        System.out.println("finish step 1");
+        lvKH.setOnItemClickListener((parent, view, position, id) -> {
+            LongTermGoal selectedItem = longTermGoalList.get(position);
+            navigateToEditPlan(selectedItem);
+        });
 
+        lvKH.setOnItemLongClickListener((parent, view, position, id) -> {
+            LongTermGoal selectedItem = longTermGoalList.get(position);
+            confirmAndDeletePlan(position, selectedItem);
+            return true;
+        });
+    }
+
+    private void navigateToHome() {
+        Intent intent = new Intent(LapKeHoachActivity.this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    private void navigateToAddOrEditPlan() {
+        Intent intent = new Intent(LapKeHoachActivity.this, ThemSuaKeHoachActivity.class);
+        startActivity(intent);
+    }
+
+    private void navigateToEditPlan(LongTermGoal selectedItem) {
+        Intent intent = new Intent(this, ThemSuaKeHoachActivity.class);
+        intent.putExtra("id", selectedItem.getId());
+        intent.putExtra("name", selectedItem.getName());
+        intent.putExtra("targetAmount", selectedItem.getTarget());
+        intent.putExtra("currentProgress", selectedItem.getProgress());
+        intent.putExtra("deadline", selectedItem.getDeadline());
+        startActivity(intent);
+    }
+
+    private void confirmAndDeletePlan(int position, LongTermGoal selectedItem) {
+        new AlertDialog.Builder(this)
+                .setTitle("Xác nhận xóa")
+                .setMessage("Bạn có muốn xóa kế hoạch này không?")
+                .setPositiveButton("Đồng ý", (dialog, which) -> {
+                    longTermGoalList.remove(position);
+                    longTermGoalDAO.delete(selectedItem);
+                    lapKeHoachAdapter.notifyDataSetChanged();
+                })
+                .setNegativeButton("Hủy", null)
+                .show();
     }
 
     private void resetData() {
-        // Lấy danh sách tất cả các mục từ DAO
         List<LongTermGoal> allGoals = longTermGoalDAO.getAll();
-
-        // Kiểm tra danh sách có mục nào không
         if (allGoals != null && !allGoals.isEmpty()) {
-            for (LongTermGoal goal : allGoals) {
-                // Xóa từng mục
-                longTermGoalDAO.delete(goal);
-            }
-            System.out.println("All data has been reset.");
-        } else {
-            System.out.println("No data to reset.");
+            allGoals.forEach(longTermGoalDAO::delete);
         }
-
-        // Cập nhật lại ListView sau khi reset
-        createLV();
+        loadListView();
     }
 
-
-    private void createLV()
-    {
-        System.out.println("Start");
-        longTermGoalList = longTermGoalDAO.getAll();
-        System.out.println("step1");
-        lapKeHoachAdapter= new LapKeHoachAdapter(this,R.layout.fragment_kehoach_item,longTermGoalList);
-        System.out.println("step2");
-        lvKH.setAdapter(lapKeHoachAdapter);
-        System.out.println("Size of list: "+longTermGoalList.size());
-        longTermGoalList.forEach(System.out::println);
+    private void fakeData() {
+        java.util.Date currentDate = new java.util.Date();
+        Date sqlDate = new Date(currentDate.getTime());
+        LongTermGoal sampleGoal = new LongTermGoal("Hưu trí", 100.0, sqlDate, 30.0, true);
+        longTermGoalDAO.add(sampleGoal);
     }
 }
