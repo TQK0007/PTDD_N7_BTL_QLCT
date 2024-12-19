@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,45 +7,158 @@
     tools:context=".activity.LapKeHoachActivity"
     android:orientation="vertical">
 
-    <TableRow
+    <!-- Header -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="3"
-        android:background="@color/md_yellow_800">
+        android:orientation="horizontal"
+        android:padding="2dp"
+        android:fitsSystemWindows="true"
+        android:background="@color/md_yellow_800"
+        android:weightSum="8">
+
         <ImageView
             android:id="@+id/image_back"
-            android:src="@drawable/back"
             android:layout_width="22dp"
             android:layout_height="22dp"
+            android:layout_weight="1"
+            android:src="@drawable/back"
             app:tint="@color/white"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="15dp"
-            />
-        <TextView
-            android:layout_width="240dp"
-            android:layout_height="70dp"
+            android:layout_gravity="center_vertical" />
 
-            android:gravity="center_vertical"
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="6"
+            android:gravity="center"
             android:text="Lập kế hoạch"
             android:textColor="@color/white"
-            android:layout_marginStart="40dp"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
         <ImageView
             android:id="@+id/image_add"
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:layout_weight="1"
             android:src="@drawable/ic_plus"
-            android:layout_gravity="center"
-            android:layout_marginStart="30dp"
             app:tint="@color/white"
-            />
-    </TableRow>
+            android:layout_gravity="center_vertical" />
+    </LinearLayout>
+
+    <!-- ListView Quá hạn -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="12dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Kế hoạch quá hạn"
+            android:textColor="@color/md_red_600"
+            android:textStyle="bold"
+            android:textSize="18sp" /> <!-- Tăng kích thước chữ -->
+
+        <!-- Số lượng kế hoạch quá hạn -->
+        <TextView
+            android:id="@+id/tv_qua_han_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="8dp"
+            android:text="0"
+            android:textColor="@color/md_red_600"
+            android:textSize="18sp" />
+    </LinearLayout>
 
     <ListView
-        android:id="@+id/lvKeHoach"
+        android:id="@+id/lv_qua_han"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp" />
 
+    <!-- ListView Chưa hoàn thành -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="12dp">
 
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Kế hoạch đang thực hiện"
+            android:textColor="@color/md_blue_600"
+            android:textStyle="bold"
+            android:textSize="18sp" />
 
+        <!-- Số lượng kế hoạch đang thực hiện -->
+        <TextView
+            android:id="@+id/tv_chua_hoan_thanh_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="8dp"
+            android:text="0"
+            android:textColor="@color/md_blue_600"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/lv_chua_hoan_thanh"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp" />
+
+    <!-- ListView Đã hoàn thành -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="12dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Kế hoạch đã hoàn thành"
+            android:textColor="@color/md_green_600"
+            android:textStyle="bold"
+            android:textSize="18sp" />
+
+        <!-- Số lượng kế hoạch đã hoàn thành -->
+        <TextView
+            android:id="@+id/tv_hoan_thanh_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="8dp"
+            android:text="0"
+            android:textColor="@color/md_green_600"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/lv_hoan_thanh"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp" />
+
+    <!-- Nút Xóa Tất Cả -->
+    <Button
+        android:id="@+id/btn_clear_all"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="Xóa tất cả"
+        android:textSize="16sp"
+        android:backgroundTint="@color/md_red_600"
+        android:textColor="@android:color/white" />
 </LinearLayout>

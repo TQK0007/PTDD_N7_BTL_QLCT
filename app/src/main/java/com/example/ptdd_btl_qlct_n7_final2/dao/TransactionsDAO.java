@@ -20,6 +20,7 @@ public interface TransactionsDAO extends DAO<Transactions> {
     @Query(value = "select * from Transactions where transactionId = :id")
     Transactions findByID(int id);
 
+//    Lấy danh sách loại thu hoặc chi
     @Query(value = "select transactionId,amount,createdAt,note, Category.categoryId,categoryName,iconName " +
             " from Transactions inner join Category on Transactions.categoryId=Category.categoryId " +
             "where Category.isIncome = :isIncome " +

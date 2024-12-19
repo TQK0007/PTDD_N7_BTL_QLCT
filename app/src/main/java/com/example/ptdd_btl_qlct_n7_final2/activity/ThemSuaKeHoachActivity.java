@@ -1,8 +1,9 @@
-package com.example.ptdd_btl_qlct_n7_final2;
+package com.example.ptdd_btl_qlct_n7_final2.activity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.CheckBox;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -11,12 +12,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.ptdd_btl_qlct_n7_final2.activity.LapKeHoachActivity;
 import com.example.ptdd_btl_qlct_n7_final2.database.AppDatabase;
 import com.example.ptdd_btl_qlct_n7_final2.databinding.ActivityThemSuaKeHoachBinding;
 import com.example.ptdd_btl_qlct_n7_final2.entity.LongTermGoal;
 import com.example.ptdd_btl_qlct_n7_final2.dao.LongTermGoalDAO;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -25,6 +26,7 @@ public class ThemSuaKeHoachActivity extends AppCompatActivity {
 
     private ActivityThemSuaKeHoachBinding binding;
     private Date selectedDate;
+    private CheckBox checkBoxDefault;
     private LongTermGoalDAO longTermGoalDAO;
 
     @Override
@@ -78,10 +80,13 @@ public class ThemSuaKeHoachActivity extends AppCompatActivity {
         double targetAmount = intent.getDoubleExtra("targetAmount", 0);
         double currentProgress = intent.getDoubleExtra("currentProgress", 0);
         Date deadline = (Date) intent.getSerializableExtra("deadline");
+        boolean isDefault = getIntent().getBooleanExtra("isDefault", false);
 
+        DecimalFormat df = new DecimalFormat("#,###");
         binding.etPlanName.setText(intent.getStringExtra("name"));
-        binding.etTargetAmount.setText(String.valueOf(targetAmount));
-        binding.etCurrentAmount.setText(String.valueOf(currentProgress));
+        binding.etTargetAmount.setText(df.format(targetAmount));
+        binding.etCurrentAmount.setText(df.format(currentProgress));
+        binding.checkboxDefault.setChecked(isDefault);
 
         if (deadline != null) {
             binding.etDeadline.setText(new SimpleDateFormat("dd/MM/yyyy").format(deadline));
@@ -112,8 +117,9 @@ public class ThemSuaKeHoachActivity extends AppCompatActivity {
 
     private void saveData() {
         String planName = binding.etPlanName.getText().toString();
-        String targetAmountText = binding.etTargetAmount.getText().toString();
-        String currentAmountText = binding.etCurrentAmount.getText().toString();
+        String targetAmountText = binding.etTargetAmount.getText().toString().replace(".", "");  // Loại bỏ dấu phân cách ngàn
+        String currentAmountText = binding.etCurrentAmount.getText().toString().replace(".", "");  // Loại bỏ dấu phân cách ngàn
+        boolean isDefault = binding.checkboxDefault.isChecked();
 
         // Validate dữ liệu
         if (!validateInputs(planName, targetAmountText, currentAmountText)) return;
@@ -121,7 +127,7 @@ public class ThemSuaKeHoachActivity extends AppCompatActivity {
         double targetAmount = Double.parseDouble(targetAmountText);
         double currentAmount = Double.parseDouble(currentAmountText);
 
-        LongTermGoal goal = new LongTermGoal(planName, targetAmount, selectedDate, currentAmount, true);
+        LongTermGoal goal = new LongTermGoal(planName, targetAmount, selectedDate, currentAmount, isDefault);
         Intent intent = getIntent();
         String name = intent.getStringExtra("name");
 
@@ -135,12 +141,13 @@ public class ThemSuaKeHoachActivity extends AppCompatActivity {
             }
         } else {
             // Thêm mới dữ liệu
-            longTermGoalDAO.add(goal);
+            longTermGoalDAO.addWithDefaultCheck(goal);
             Toast.makeText(this, "Thêm mới thành công!", Toast.LENGTH_SHORT).show();
         }
 
         navigateToLapKeHoach();
     }
+
 
     private boolean validateInputs(String planName, String targetAmountText, String currentAmountText) {
         if (planName.isEmpty()) {

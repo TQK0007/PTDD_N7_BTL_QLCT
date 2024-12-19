@@ -307,16 +307,12 @@ public class ThemSuaThuChiActivity extends AppCompatActivity implements SelectLi
             System.out.println("Định dạng ngày tháng không hợp lệ!");
             e.printStackTrace();
         }
-
-
         if(LongTermGoalName.isEmpty() && !LongTermGoalNames.isEmpty())
         {
             Toast.makeText(curContext,"Vui long chon danh muc tiet kiem",Toast.LENGTH_SHORT).show();
             return;
         }
-
         int LongTermGoalID = longTermGoalDAO.getLongTermGoalByName(LongTermGoalName);
-
         Transactions transactions = null;
         if(LongTermGoalID==0)
         {
@@ -335,10 +331,8 @@ public class ThemSuaThuChiActivity extends AppCompatActivity implements SelectLi
             updateLongTermGoal.setProgress(updateProcess);
             longTermGoalDAO.update(updateLongTermGoal);
         }
-
         intent = new Intent(ThemSuaThuChiActivity.this,ThuChiActivity.class);
         startActivity(intent);
-
     }
 
     private void isNotTabTienChiAndAdd()
@@ -371,10 +365,8 @@ public class ThemSuaThuChiActivity extends AppCompatActivity implements SelectLi
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
         Transactions transactions = new Transactions(amout,categoryID,date,note,type,null);
         transactionsDAO.add(transactions);
-
         intent = new Intent(ThemSuaThuChiActivity.this,ThuChiActivity.class);
         startActivity(intent);
     }
@@ -410,17 +402,14 @@ public class ThemSuaThuChiActivity extends AppCompatActivity implements SelectLi
             // Xử lý ngoại lệ nếu chuỗi không đúng định dạng
             e.printStackTrace();
         }
-
 //        cap nhat du lieu
         editTransactions.setCreatedAt(date);
         editTransactions.setNote(note);
         editTransactions.setAmount(amout);
         editTransactions.setCategoryId(categoryID);
         transactionsDAO.update(editTransactions);
-
         intent = new Intent(ThemSuaThuChiActivity.this,ThuChiActivity.class);
         startActivity(intent);
-
     }
     private void isTabTienChiAndEdit()
     {
@@ -455,14 +444,11 @@ public class ThemSuaThuChiActivity extends AppCompatActivity implements SelectLi
             System.out.println("Định dạng ngày tháng không hợp lệ!");
             e.printStackTrace();
         }
-
-
         if(LongTermGoalName.isEmpty() && !LongTermGoalNames.isEmpty())
         {
             Toast.makeText(curContext,"Vui long chon danh muc tiet kiem",Toast.LENGTH_SHORT).show();
             return;
         }
-
         int LongTermGoalID = longTermGoalDAO.getLongTermGoalByName(LongTermGoalName);
         LongTermGoal updateLongTermGoal = longTermGoalDAO.findByID(LongTermGoalID);
 
@@ -477,13 +463,10 @@ public class ThemSuaThuChiActivity extends AppCompatActivity implements SelectLi
         editTransactions.setGoalId(LongTermGoalID);
         transactionsDAO.update(editTransactions);
 
-
         //        cap nhat tien trinh cho tiet kiem
-
         double updateProcess = beforUpdateProcess+amout;
         updateLongTermGoal.setProgress(updateProcess);
         longTermGoalDAO.update(updateLongTermGoal);
-
         intent = new Intent(ThemSuaThuChiActivity.this,ThuChiActivity.class);
         startActivity(intent);
     }

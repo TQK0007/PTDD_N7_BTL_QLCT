@@ -104,12 +104,10 @@ public class ThuChiActivity extends AppCompatActivity {
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-
                                 Transactions delTransactions = transactionsDAO.findByID(transactionsDTOS.get(i).getTransactionId());
                                 transactionsDAO.delete(delTransactions);
                                 transactionsDTOS.remove(i);
                                 thuChiAdapter.notifyDataSetChanged();
-
 //                                cap nhat danh LongTermGoal
                                 Integer longTermGoalID = delTransactions.getGoalId();
                                 if(longTermGoalID != null)
@@ -119,18 +117,13 @@ public class ThuChiActivity extends AppCompatActivity {
                                     updateLongTermGoal.setProgress(updateProcess);
                                     longTermGoalDAO.update(updateLongTermGoal);
                                 }
-
                             }
                         })
                         .setNegativeButton("Hủy", null)  // Không làm gì khi người dùng nhấn "Hủy"
                         .show();
-
                 return true;
             }
         });
-
-
-
     }
 
     private void getWidget()
